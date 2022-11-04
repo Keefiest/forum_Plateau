@@ -14,17 +14,6 @@
             parent::connect();
         }
 
-        public function getCategoryByTopics($id){
-            $sql = "
-                SELECT * 
-                FROM category c
-                WHERE c.id_category = :id
-            ";
-            return $this->getOneOrNullResult(
-                DAO::select($sql, ['id' => $id]),
-                "Model\Entities\Category"
-            );   
-        }
         public function getTopicsByCategory($id){
             $sql = "
                 SELECT * 

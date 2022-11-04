@@ -148,4 +148,8 @@
             $this->registerDate = new \DateTime($date);
             return $this;
         }
+        public function __toString()
+        {
+            return $this->nickname;
+        }
     }

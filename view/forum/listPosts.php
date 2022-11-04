@@ -12,7 +12,7 @@ foreach($posts as $post){
 
     ?>
     <p>
-            <?=$post->getText()?>
+            <?php echo $post->getText()?>
     </p>
     <?php
 }

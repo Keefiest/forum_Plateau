@@ -96,7 +96,7 @@
         }
 
         public function getcreationDate(){
-            $formattedDate = $this->creationDate->format("d/m/Y, H:i:s");
+            $formattedDate = $this->creationDate->format("d/m/Y");
             return $formattedDate;
         }
 
@@ -123,5 +123,9 @@
                 $this->closed = $closed;
 
                 return $this;
+        }
+        public function __toString()
+        {
+                return $this->title;
         }
     }

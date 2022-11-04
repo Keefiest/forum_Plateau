@@ -93,5 +93,9 @@
 
                 return $this;
         }
+        public function __toString()
+        {
+                $this->text;
+        }
     }
     

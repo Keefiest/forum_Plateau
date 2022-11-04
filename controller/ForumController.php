@@ -33,13 +33,13 @@
         // }
         
         public function listTopics($id){
-            $topicbyidManager = new TopicManager();
-            $categorybyTopics = new CategoryManager();
+            $topicManager = new TopicManager();
+            $categoryManager = new CategoryManager();
             return[
                 "view" => VIEW_DIR."forum/listTopics.php",
                 "data" => [
-                    "topics" => $topicbyidManager->getTopicsByCategory($id),
-                    "categories" => $categorybyTopics->getCategoryByTopics($id)
+                    "topics" => $topicManager->getTopicsByCategory($id),
+                    "category" => $categoryManager->findOneById($id)
                 ]
             ];
         }
