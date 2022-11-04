@@ -5,7 +5,7 @@
     use App\Session;
     use App\AbstractController;
     use App\ControllerInterface;
-    use Model\Managers\UserManager;
+    use Model\Managers\MemberManager;
     use Model\Managers\TopicManager;
     use Model\Managers\PostManager;
     
@@ -24,13 +24,13 @@
         public function users(){
             $this->restrictTo("ROLE_USER");
 
-            $manager = new UserManager();
-            $users = $manager->findAll(['registerdate', 'DESC']);
+            $manager = new MemberManager();
+            $members = $manager->findAll(['registerdate', 'DESC']);
 
             return [
                 "view" => VIEW_DIR."security/users.php",
                 "data" => [
-                    "users" => $users
+                    "users" => $members
                 ]
             ];
         }

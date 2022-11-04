@@ -7,8 +7,9 @@
 
         private $id;
         private $title;
-        private $user;
-        private $creationdate;
+        private $creationDate;
+        private $category;
+        private $member;
         private $closed;
 
         public function __construct($data){         
@@ -54,34 +55,53 @@
 
                 return $this;
         }
-
         /**
-         * Get the value of user
+         * Get the value of category
          */ 
-        public function getUser()
+        public function getCategory()
         {
-                return $this->user;
+                return $this->category;
         }
 
         /**
-         * Set the value of user
+         * Set the value of category
          *
          * @return  self
          */ 
-        public function setUser($user)
+        public function setCategory($category)
         {
-                $this->user = $user;
+                $this->category = $category;
 
                 return $this;
         }
 
-        public function getCreationdate(){
-            $formattedDate = $this->creationdate->format("d/m/Y, H:i:s");
+        /**
+         * Get the value of member
+         */ 
+        public function getMember()
+        {
+                return $this->member;
+        }
+
+        /**
+         * Set the value of member
+         *
+         * @return  self
+         */ 
+        public function setMember($member)
+        {
+                $this->member = $member;
+
+                return $this;
+        }
+
+        public function getcreationDate(){
+            $formattedDate = $this->creationDate->format("d/m/Y, H:i:s");
             return $formattedDate;
         }
 
-        public function setCreationdate($date){
-            $this->creationdate = new \DateTime($date);
+        public function setcreationDate($date){
+            $this->creationDate = new \DateTime($date);
             return $this;
         }
 
