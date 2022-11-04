@@ -21,7 +21,7 @@
             
         
    
-        public function users(){
+        public function members(){
             $this->restrictTo("ROLE_USER");
 
             $manager = new MemberManager();

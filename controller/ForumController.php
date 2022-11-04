@@ -10,59 +10,50 @@
     use Model\Managers\MemberManager;
     use Model\Managers\PostManager;
     
-    
-    
-    class CategoryController extends AbstractController implements ControllerInterface{
-        public function index(){
-            $categoryManager = new CategoryManager();
-            return [
-                "view" => VIEW_DIR."forum/listCategories.php",
-                "date" => [
-                    "categories" => $categoryManager->findAll(["nameCategory"])
-                ]
-            ];
-        }
-    };
-
-    class MemberController extends AbstractController implements ControllerInterface{
-        public function index(){
-            $memberManager = new MemberManager();
-            return [
-                "view" => VIEW_DIR."forum/listMembers.php",
-                "date" => [
-                    "members" => $memberManager->findAll(["nickname"])
-                ]
-            ];
-        }
-    };
-
-    class PostController extends AbstractController implements ControllerInterface{
-        public function index(){
-            $postManager = new PostManager();
-            return [
-                "view" => VIEW_DIR."forum/listPosts.php",
-                "date" => [
-                    "posts" => $postManager->findAll(["nameCategory"])
-                ]
-            ];
-        }
-    };
     class ForumController extends AbstractController implements ControllerInterface{
 
         public function index(){
-          
 
-           $topicManager = new TopicManager();
-           
+        }
 
+        public function listCategories(){
+            $categoryManager = new CategoryManager();
             return [
-                "view" => VIEW_DIR."forum/listTopics.php",
+                "view" => VIEW_DIR."forum/listCategories.php",
                 "data" => [
-                    "topics" => $topicManager->findAll(["creationDate", "DESC"])
+                    "categories" => $categoryManager->findAll(["nameCategory", "ASC"])
                 ]
             ];
-        
         }
+        // public function showCategory(){
+        //     $categoryManager = new CategoryManager()
+        //     return [
+        //         "view" =>
+        //     ]
+        // }
+        
+        public function listTopics($id){
+            $topicbyidManager = new TopicManager();
+            $categorybyTopics = new CategoryManager();
+            return[
+                "view" => VIEW_DIR."forum/listTopics.php",
+                "data" => [
+                    "topics" => $topicbyidManager->getTopicsByCategory($id),
+                    "categories" => $categorybyTopics->getCategoryByTopics($id)
+                ]
+            ];
+        }
+        
+        public function listPosts($id){
+            $postbyidManager = new PostManager();
+            return[
+                "view" => VIEW_DIR."forum/listPosts.php",
+                "data" => [
+                    "posts" => $postbyidManager->getPostsByTopic($id)
+                ]
+            ];
+        }
+
 
         
 

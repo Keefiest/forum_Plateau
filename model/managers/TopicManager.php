@@ -14,5 +14,29 @@
             parent::connect();
         }
 
+        public function getCategoryByTopics($id){
+            $sql = "
+                SELECT * 
+                FROM category c
+                WHERE c.id_category = :id
+            ";
+            return $this->getOneOrNullResult(
+                DAO::select($sql, ['id' => $id]),
+                "Model\Entities\Category"
+            );   
+        }
+        public function getTopicsByCategory($id){
+            $sql = "
+                SELECT * 
+                FROM ".$this->tableName." t
+                INNER JOIN category c on t.category_id = c.id_category
+                WHERE t.category_id = :id
+            ";
+            return $this->getMultipleResults(
+                DAO::select($sql, ['id' => $id]),
+                $this->className
+            );   
+        }
+
 
     }
