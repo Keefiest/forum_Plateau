@@ -25,12 +25,6 @@
                 ]
             ];
         }
-        // public function showCategory(){
-        //     $categoryManager = new CategoryManager()
-        //     return [
-        //         "view" =>
-        //     ]
-        // }
         
         public function listTopics($id){
             $topicManager = new TopicManager();
@@ -45,11 +39,13 @@
         }
         
         public function listPosts($id){
-            $postbyidManager = new PostManager();
+            $postsManager = new PostManager();
+            $memberManager = new memberManager();
             return[
                 "view" => VIEW_DIR."forum/listPosts.php",
                 "data" => [
-                    "posts" => $postbyidManager->getPostsByTopic($id)
+                    "posts" => $postsManager->getPostsByTopic($id),
+                    "member" => $memberManager->findOneById($id)
                 ]
             ];
         }

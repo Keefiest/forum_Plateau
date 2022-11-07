@@ -6,7 +6,7 @@
     final class Member extends Entity{
 
         private $id;
-        private $nickname;
+        private $username;
         private $password;
         private $email;
         private $rank;
@@ -38,21 +38,21 @@
         }
 
         /**
-         * Get the value of nickname
+         * Get the value of username
          */ 
-        public function getNickname()
+        public function getUsername()
         {
-                return $this->nickname;
+                return $this->username;
         }
 
         /**
-         * Set the value of nickname
+         * Set the value of username
          *
          * @return  self
          */ 
-        public function setNickname($nickname)
+        public function setUsername($username)
         {
-                $this->nickname = $nickname;
+                $this->username = $username;
 
                 return $this;
         }
@@ -150,6 +150,6 @@
         }
         public function __toString()
         {
-            return $this->nickname;
+            return $this->username;
         }
     }

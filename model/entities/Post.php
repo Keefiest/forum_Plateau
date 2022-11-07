@@ -7,6 +7,7 @@
 
         private $id;
         private $text;
+        private $postDate;
         private $topic;
         private $member;
 
@@ -53,6 +54,27 @@
                 $this->text = $text;
 
                 return $this;
+        }
+
+
+        /**
+         * Get the value of postDate
+         */ 
+        public function getPostDate()
+        {
+            return $this->postDate;
+        }
+
+        /**
+         * Set the value of postDate
+         *
+         * @return  self
+         */ 
+        public function setPostDate($postDate)
+        {
+            $this->postDate = $postDate;
+            
+            return $this;
         }
 
         /**
