@@ -18,6 +18,12 @@ foreach($topics as $topic){
     </p>
     <?php
 }
+?>
+<h2>
+    <a href="index.php?ctrl=forum&action=addTopic">
+        +Topic
+    </a>
+</h2>
 
 
   

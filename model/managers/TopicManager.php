@@ -30,13 +30,13 @@
             if(isset($_POST["submit"])){
                 $title = filter_input(INPUT_POST, "title", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 $category = filter_input(INPUT_POST, "category", FILTER_SANITIZE_NUMBER_INT);
-                $member = filter_input(INPUT_POST, "member", FILTER_SANITIZE_NUMBER_INT);
+                $text = filter_input(INPUT_POST, "text", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                $member = 1;
 
                 
-                if($title && $creationDate){
-                    $pdo = Connect::seConnecter();
-                    $insertRole = $pdo->prepare("INSERT INTO topic(title, category_id, member_id) VALUES (:title, :category, :member)");
-                    $insertRole->execute([
+                if($title && $category && $text && $member){
+                    $insertTopic = $pdo->prepare("INSERT INTO topic(title, category_id, member_id) VALUES (:title, :category, :member)");
+                    $insertTopic->execute([
                         "title" => $title,
                         "category" => $category,
                         "member" => $member
