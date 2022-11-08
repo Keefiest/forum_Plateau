@@ -15,9 +15,7 @@ foreach($posts as $post){
 <?php
 }
 ?>
-<h2>
-    <a href=""></a>
-</h2>
+
 
 
   
