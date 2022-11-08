@@ -1,7 +1,7 @@
 <?php
 $categories = $result["data"]['categories'];
 ?>
-<form action="" method="POST">
+<form action="index.php?ctrl=forum&action=addTopic" method="POST">
     <h2>+Topic</h2>
     <p>
         <label>
