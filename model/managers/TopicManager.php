@@ -26,6 +26,27 @@
                 $this->className
             );   
         }
+        public function addTopic(){
+            if(isset($_POST["submit"])){
+                $title = filter_input(INPUT_POST, "title", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                $category = filter_input(INPUT_POST, "category", FILTER_SANITIZE_NUMBER_INT);
+                $member = filter_input(INPUT_POST, "member", FILTER_SANITIZE_NUMBER_INT);
+
+                
+                if($title && $creationDate){
+                    $pdo = Connect::seConnecter();
+                    $insertRole = $pdo->prepare("INSERT INTO topic(title, category_id, member_id) VALUES (:title, :category, :member)");
+                    $insertRole->execute([
+                        "title" => $title,
+                        "category" => $category,
+                        "member" => $member
+                    ]);
+    
+                }
+                header('Location:index.php?action=');
+            };    
+        }
+
 
 
     }

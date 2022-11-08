@@ -12,9 +12,12 @@ foreach($posts as $post){
     <p>
             <?php echo $post->getMember()." (".$post->getPostDate().") à écrit : <br>".$post->getText()?>
     </p>
-    <?php
+<?php
 }
-
+?>
+<h2>
+    <a href=""></a>
+</h2>
 
 
   
