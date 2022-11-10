@@ -19,11 +19,11 @@ foreach($topics as $topic){
     <?php
 }
 ?>
-<h2>
+<h3>
     <a href="index.php?ctrl=forum&action=addTopic">
         +Topic
     </a>
-</h2>
+</h3>
 
 
   
