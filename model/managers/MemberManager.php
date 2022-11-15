@@ -30,7 +30,7 @@
     
             $sql = "SELECT *
                     FROM ".$this->tableName." a
-                    WHERE a.username = :username";
+                    WHERE m.username = :username";
     
             return $this->getOneOrNullResult(
                 DAO::select($sql, ['username' => $username], false), 
