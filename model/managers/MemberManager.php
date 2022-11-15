@@ -26,6 +26,17 @@
                 $this->className
             );
         }
+        public function findOneByUser($username){
+    
+            $sql = "SELECT *
+                    FROM ".$this->tableName." a
+                    WHERE a.username = :username";
+    
+            return $this->getOneOrNullResult(
+                DAO::select($sql, ['username' => $username], false), 
+                $this->className
+            );
+        }
 
 
     }
