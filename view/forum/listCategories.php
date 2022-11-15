@@ -17,6 +17,7 @@ foreach($categories as $category){
     </p>
     <?php
 }
+?>
 
 
   

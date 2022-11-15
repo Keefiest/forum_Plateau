@@ -14,28 +14,24 @@
             parent::connect();
         }
 
-        public function getTopicsByCategory($id){
+        public function getTopicsByCategory($order = null, $id){
+            
+            $orderQuery = ($order) ?                 
+                "ORDER BY ".$order[0]. " ".$order[1] :
+                "";
+
             $sql = "
-                SELECT * 
-                FROM ".$this->tableName." t
-                INNER JOIN category c on t.category_id = c.id_category
-                WHERE t.category_id = :id
-            ";
+                    SELECT * 
+                    FROM ".$this->tableName." t
+                    INNER JOIN category c on t.category_id = c.id_category
+                    WHERE t.category_id = :id
+                    "
+                    .$orderQuery;
+                    
             return $this->getMultipleResults(
                 DAO::select($sql, ['id' => $id]),
                 $this->className
             );   
         }
-        public function listCategoriesInsideAddTopic(){
-            $categoryManager = new CategoryManager();
-            return [
-                "view" => VIEW_DIR."forum/addTopic.php",
-                "data" => [
-                    "categories" => $categoryManager->findAll(["nameCategory", "ASC"])
-                ]
-            ];
-        }
-        
-
 
     }
