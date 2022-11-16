@@ -2,7 +2,7 @@
 
     namespace Controller;
 
-    use App\Session;
+    use App\Session as session;
     use App\AbstractController;
     use App\ControllerInterface;
     use Model\Managers\TopicManager;
@@ -59,16 +59,19 @@
                 if($email && $password){
                     $memberManager = new Membermanager();
                     // On vérifie que l'email existe en base de donnée et que le mot de passe est correct
-                    if($memberManager->findOneByEmail($email)){
-                        $hashpassWord = $memberManager->getPassword();
-                        if(password_verify($password, $passwordHash)){
-                            $memberManager->setMember($memberManager);
+                    $user = $memberManager->findOneByEmail($email);
+                    if($user){
+                        $hashPassword = $memberManager->findOneByEmail($email)->getPassword();
+                        // var_dump($hashPassword); die;
+                        if(password_verify($password, $hashPassword)){
+                            session::setMember($user);
+                            header("Location: index.php?ctrl=forum&action=listCategories");
                         }
                     }
                 
                 }
                 return [
-                    "view" => VIEW_DIR."index.php"
+                    "view" => VIEW_DIR."security/register-login.php"
                 ];
             }
         }

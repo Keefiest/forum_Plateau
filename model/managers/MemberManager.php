@@ -13,7 +13,6 @@
         public function __construct(){
             parent::connect();
         }
-
         public function findOneByEmail($email){
 
             $sql ="
