@@ -32,5 +32,23 @@
                 $this->className
             );   
         }
+        public function managerLockTopic($id){
+            $sql = "
+                UPDATE ".$this->tableName." t
+                SET closed = 1
+                WHERE t.id_topic = :id
+            ";
+            DAO::update($sql, ['id' => $id]);
+            
+        }
+        public function managerUnlockTopic($id){
+            $sql = "
+                UPDATE ".$this->tableName." t
+                SET closed = 0
+                WHERE t.id_topic = :id
+            ";
+            DAO::update($sql, ['id' => $id]);
+            
+        }
 
     }

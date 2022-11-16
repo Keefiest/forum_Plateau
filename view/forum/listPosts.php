@@ -3,10 +3,28 @@
 $posts = $result["data"]['posts'];
 $topic = $result["data"]['topic'];
 ?>
-
 <h1>Posts du Topic <?=$topic->getTitle()?></h1>
 
 <?php
+if(App\Session::getMember()->getId() == $topic->getMember()->getId()){
+    if($topic->getClosed() == 0){
+?> 
+    <form action="index.php?ctrl=forum&action=lockTopic&id=<?php $topic->getId()?>" method="POST">
+        <input type="submit" name="lockTopic" value="UnlockTopic">
+    </form>
+<?php
+    }
+    else{
+        ?>
+        <form action="index.php?ctrl=forum&action=unlockTopic&id=<?= $topic->getId()?>" method="POST">
+            <input type="submit" name="unlockTopic" value="unlockTopic">
+        </form>
+        <?php
+    }
+}
+else{
+    echo "<h3>Par ".$topic->getMember()."</h3>";
+}
 foreach($posts as $post){
     ?>
     <p>

@@ -38,7 +38,7 @@
         }
 
         public static function isAdmin(){
-            if(self::getMember()){
+            if(self::getMember() && self::getMember()->getRank()== "admin"){
                 return true;
             }
             return false;

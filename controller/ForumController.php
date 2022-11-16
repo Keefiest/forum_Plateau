@@ -96,6 +96,31 @@
                 header('Location:index.php?ctrl=forum&action=listPosts&id='.$id);
             }
         }
+        public function lockTopic($id){
+            $topicManager = new TopicManager();
+            $topic = $topicManager->findOnebyId($id);
+            if(isset($_POST['lockTopic'])){
+                var_dump('ok'); die;
+                if($_SESSION["member"]->getId() == $topic->getMember()->getId()){
+                    $topicManager->lockTopic($id);
+                    
+                    header("Location:index.php?ctrl=forum&action=listPosts&id=".$id);
+                }
+            }
+        }
+
+        public function unlockTopic($id){
+            $topicManager = new TopicManager();
+            $topic = $topicManager->findOnebyId($id);
+            if(isset($_POST['unlockTopic'])){
+                var_dump('ok'); die;
+                if($_SESSION["member"]->getId() == $topic->getMember()->getId()){
+                    $topicManager->unlockTopic($id);
+                    
+                    header("Location:index.php?ctrl=forum&action=listPosts&id=".$id);
+                }
+            }
+        }
        
         
         
