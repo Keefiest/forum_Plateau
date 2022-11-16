@@ -32,16 +32,17 @@
                     <div id="nav-right">
                     <?php
                         
-                        if(App\Session::getUser()){
+                        if(App\Session::getMember()){
                             ?>
-                            <a href="/security/viewProfile.html"><span class="fas fa-user"></span>&nbsp;<?= App\Session::getUser()?></a>
+                            <a href="index.php?ctrl=forum&action=listCategories">Categories</a>
+                            <a href="/security/viewProfile.html"><span class="fas fa-user"></span>&nbsp;<?= App\Session::getMember()?></a>
                             <a href="/security/logout.html">Déconnexion</a>
                             <?php
                         }
                         else{
                             ?>
                             <a href="./view/security/login.php">Connexion</a>
-                            <a href="/security/register.html">Inscription</a>
+                            <a href="index.php?ctrl=security&action=pageRegisterLogin">Inscription</a>
                             <a href="index.php?ctrl=forum&action=listCategories">Categories</a>
                         <?php
                         }

@@ -27,18 +27,18 @@
         }
 
         /**
-        *   met un user dans la session (pour le maintenir connecté)
+        *   met un member dans la session (pour le maintenir connecté)
         */
-        public static function setUser($user){
-            $_SESSION["user"] = $user;
+        public static function setMember($member){
+            $_SESSION["member"] = $member;
         }
 
-        public static function getUser(){
-            return (isset($_SESSION['user'])) ? $_SESSION['user'] : false;
+        public static function getMember(){
+            return (isset($_SESSION['member'])) ? $_SESSION['member'] : false;
         }
 
         public static function isAdmin(){
-            if(self::getUser() && self::getUser()->hasRole("ROLE_ADMIN")){
+            if(self::getMember() && self::getMember()->hasRole("ROLE_ADMIN")){
                 return true;
             }
             return false;

@@ -14,12 +14,12 @@
             parent::connect();
         }
 
-        public function finOneByEmail($email){
+        public function findOneByEmail($email){
 
             $sql ="
                 SELECT *
                 FROM ".$this->tableName." m
-                WHERE m.email = :email
+                WHERE email = :email
             ";
             return $this->getOneOrNullResult(
                 DAO::select($sql, ['email' => $email], false),
@@ -29,7 +29,7 @@
         public function findOneByUser($username){
     
             $sql = "SELECT *
-                    FROM ".$this->tableName." a
+                    FROM ".$this->tableName." m
                     WHERE m.username = :username";
     
             return $this->getOneOrNullResult(
