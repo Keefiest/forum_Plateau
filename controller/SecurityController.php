@@ -29,11 +29,10 @@
                 $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL, FILTER_VALIDATE_EMAIL);
                 $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 $verifyPassword = filter_input(INPUT_POST, "verifyPassword", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-                $rank = "membre";
+                $rank = "member";
                 $phoneNumber = 555444;
                 
-                if($username && $username && $password){
-                    
+                if($username && $email && $password && $verifyPassword){
                     $memberManager = new MemberManager();
                     // On vérifie que le pseudo et l'adresse email n'existe pas en base de donnée, et que le mot de passe est pareil que la confirmation
                     if(!$memberManager->findOneByUser($username) && !$memberManager->findOneByEmail($email) && ($password == $verifyPassword)){
@@ -44,6 +43,9 @@
                             "rank" => $rank,
                             "phoneNumber" => $phoneNumber
                         ]);
+                        header("Location:index.php?ctrl=forum&action=pageRegisterLogin");
+                    } else{
+                        var_dump('etrange'); die;
                     }
                 }
                 return [
@@ -59,12 +61,12 @@
                 if($email && $password){
                     $memberManager = new Membermanager();
                     // On vérifie que l'email existe en base de donnée et que le mot de passe est correct
-                    $user = $memberManager->findOneByEmail($email);
-                    if($user){
+                    $member = $memberManager->findOneByEmail($email);
+                    if($member){
                         $hashPassword = $memberManager->findOneByEmail($email)->getPassword();
                         // var_dump($hashPassword); die;
                         if(password_verify($password, $hashPassword)){
-                            session::setMember($user);
+                            session::setMember($member);
                             header("Location: index.php?ctrl=forum&action=listCategories");
                         }
                     }
@@ -75,6 +77,14 @@
                 ];
             }
         }
+        public function logout(){
+            if(isset($_POST['logout'])){
+                session_destroy();
+                header("Location:index.php?ctrl=security&action=pageRegisterLogin");
+            }
+
+        }
+        
     }
 
 

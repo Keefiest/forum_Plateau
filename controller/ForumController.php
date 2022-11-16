@@ -2,7 +2,7 @@
 
     namespace Controller;
 
-    use App\Session;
+    use App\Session as session;
     use App\AbstractController;
     use App\ControllerInterface;
     use Model\Managers\TopicManager;
@@ -57,7 +57,7 @@
             if(isset($_POST["submit"])){
                 $title = filter_input(INPUT_POST, "title", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 $text = filter_input(INPUT_POST, "text", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-                $member = 1;
+                $member = session::getMember()->getId();
                 
                 
                 if($title && $text){
@@ -79,21 +79,21 @@
                     }
                     
                 };
-                header('Location:index.php?action=listTopics&id='.$id);
+                header('Location:index.php?ctrl=forum&action=listTopics&id='.$id);
             };    
         }
         public function addPost($id){
             $postManager = new PostManager();
             if (isset($_POST['submit'])){
                 $text = filter_input(INPUT_POST, 'text', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-                $member = 1;
+                $member = session::getMember()->getId();;
 
                 $postManager->add([
                     "text" => $text,
                     "topic_id" => $id,
                     "member_id" => $member
                 ]);
-                header('Location:index.php?action=listTopics&id='.$id);
+                header('Location:index.php?ctrl=forum&action=listPosts&id='.$id);
             }
         }
        

@@ -9,6 +9,7 @@ $category = $result["data"]['category'];
 
 <?php
 foreach($topics as $topic){
+    //var_dump($topic);
     // var_dump($topic->getId()); die;
     ?>
     <p>
@@ -18,28 +19,35 @@ foreach($topics as $topic){
     </p>
     <?php
 }
-?>
-<form action="index.php?ctrl=forum&action=addTopic&id=<?= $category->getId() ?>" method="POST">
-    <h2>+Topic</h2>
-    <p> 
-        <label>
-            Titre</br>
-            <input type="text" name="title" required="required">
-        </label>
-    </p>
 
-    <p>
-        <label>
-            Message</br>
-            <textarea name="text" cols="30" rows="10" required="required"></textarea>
-        </label>
-    </p>
-    <p>
-        <label>
-            <input type="submit" value="Créer" name="submit">
-        </label>
-    </p>
-</form>
+if(App\Session::getMember()){
+?>
+    <form action="index.php?ctrl=forum&action=addTopic&id=<?= $category->getId() ?>" method="POST">
+        <h2>+Topic</h2>
+        <p> 
+            <label>
+                Titre</br>
+                <input type="text" name="title" required="required">
+            </label>
+        </p>
+
+        <p>
+            <label>
+                Message</br>
+                <textarea name="text" cols="30" rows="10" required="required"></textarea>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="submit" value="Créer" name="submit">
+            </label>
+        </p>
+    </form>
+<?php
+}
+else{
+    echo "<h3>Connectez-vous pour ajouter des topics</h3>";
+}
 
 
   

@@ -14,26 +14,31 @@ foreach($posts as $post){
     </p>
 <?php
 }
-
-if($topic->getClosed() == 0){
-?>
-    <form action="index.php?ctrl=forum&action=addPost&id=<?= $topic->getId() ?>" method="POST">
-        <h2>+Post</h2>
-        <p>
-            <label>
-                Message</br>
-                <textarea name="text" cols="30" rows="10"></textarea>
-            </label>
-        </p>
-        <p>
-            <label>
-                <input type="submit" value="Créer" name="submit">
-            </label>
-        </p>    
-    </form>
-<?php
-} else{
-    echo "<h3>Topic fermé</h3>";
+if(App\Session::getMember()){
+    if($topic->getClosed() == 0){
+    ?>
+        <form action="index.php?ctrl=forum&action=addPost&id=<?= $topic->getId() ?>" method="POST">
+            <h2>+Post</h2>
+            <p>
+                <label>
+                    Message</br>
+                    <textarea name="text" cols="30" rows="10"></textarea>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input type="submit" value="Créer" name="submit">
+                </label>
+            </p>    
+        </form>
+    <?php
+    }
+    else{
+        echo "<h3>Topic fermé</h3>";
+    }
+}
+else{
+    echo "<h3>Connectez-vous pour poster</h3>";
 }
 ?>
 

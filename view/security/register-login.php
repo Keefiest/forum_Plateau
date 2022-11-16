@@ -22,7 +22,7 @@
         <p>
             <label>
                 Confirmer mot de passe</br>
-                <input type="password" name="confirmPassword" required="required">
+                <input type="password" name="verifyPassword" required="required">
             </label>
         </p>
         <p>
