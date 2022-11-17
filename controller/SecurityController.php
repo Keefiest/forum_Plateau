@@ -35,17 +35,26 @@
                 if($username && $email && $password && $verifyPassword){
                     $memberManager = new MemberManager();
                     // On vérifie que le pseudo et l'adresse email n'existe pas en base de donnée, et que le mot de passe est pareil que la confirmation
-                    if(!$memberManager->findOneByUser($username) && !$memberManager->findOneByEmail($email) && ($password == $verifyPassword)){
-                        $memberManager->add([
-                            "username" => $username,
-                            "email" => $email,
-                            "password" => password_hash($password, PASSWORD_DEFAULT),
-                            "rank" => $rank,
-                            "phoneNumber" => $phoneNumber
-                        ]);
-                        header("Location:index.php?ctrl=forum&action=pageRegisterLogin");
+                    if(!$memberManager->findOneByUser($username)){
+                        if(!$memberManager->findOneByEmail($email)){
+                            if($password == $verifyPassword){
+                                $memberManager->add([
+                                    "username" => $username,
+                                    "email" => $email,
+                                    "password" => password_hash($password, PASSWORD_DEFAULT),
+                                    "rank" => $rank,
+                                    "phoneNumber" => $phoneNumber
+                                ]);
+                                session::addFlash("success", "Vous êtes inscrit avec succès");
+                                $this->redirectTo("security", "pageRegisterLogin");
+                            } else {
+                                session::addFlash("error", "Le mot de passe ne correspond pas");
+                            }
+                        } else{
+                            session::addFlash("error", "L'adresse email est déjà utilisée");
+                        }
                     } else{
-                        var_dump('etrange'); die;
+                        session::addFlash("error", "Nom d'utilisateur déjà utilisé");
                     }
                 }
                 return [
@@ -67,8 +76,13 @@
                         // var_dump($hashPassword); die;
                         if(password_verify($password, $hashPassword)){
                             session::setMember($member);
-                            header("Location: index.php?ctrl=forum&action=listCategories");
+                            session::addFlash("success", "Vous vous êtes connecté avec succès");
+                            $this->redirectTo("forum", "listCategories");
+                        } else {
+                            session::addFlash("error", "Le mot de passe ne correspond pas");
                         }
+                    } else{
+                        session::addFlash("error", "L'adresse email ne correspond pas");
                     }
                 
                 }
@@ -80,7 +94,7 @@
         public function logout(){
             if(isset($_POST['logout'])){
                 session_destroy();
-                header("Location:index.php?ctrl=security&action=pageRegisterLogin");
+                $this->redirectTo("security", "pageRegisterLogin");
             }
 
         }

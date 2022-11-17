@@ -9,15 +9,15 @@ $topic = $result["data"]['topic'];
 if(App\Session::getMember()->getId() == $topic->getMember()->getId()){
     if($topic->getClosed() == 0){
 ?> 
-    <form action="index.php?ctrl=forum&action=lockTopic&id=<?php $topic->getId()?>" method="POST">
-        <input type="submit" name="lockTopic" value="UnlockTopic">
+    <form action="index.php?ctrl=forum&action=lockTopic&id=<?= $topic->getId()?>" method="POST">
+        <input type="submit" name="lockTopic" value="Vérouiller Topic">
     </form>
 <?php
     }
     else{
         ?>
         <form action="index.php?ctrl=forum&action=unlockTopic&id=<?= $topic->getId()?>" method="POST">
-            <input type="submit" name="unlockTopic" value="unlockTopic">
+            <input type="submit" name="unlockTopic" value="Déverouiller Topic">
         </form>
         <?php
     }

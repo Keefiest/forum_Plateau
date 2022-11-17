@@ -43,7 +43,7 @@
                         }
                         else{
                             ?>
-                            <a href="./view/security/login.php">Connexion</a>
+                            <a href="index.php?ctrl=security&action=pageRegisterLogin">Connexion</a>
                             <a href="index.php?ctrl=security&action=pageRegisterLogin">Inscription</a>
                             <a href="index.php?ctrl=forum&action=listCategories">Categories</a>
                         <?php

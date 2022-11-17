@@ -100,11 +100,12 @@
             $topicManager = new TopicManager();
             $topic = $topicManager->findOnebyId($id);
             if(isset($_POST['lockTopic'])){
-                var_dump('ok'); die;
-                if($_SESSION["member"]->getId() == $topic->getMember()->getId()){
-                    $topicManager->lockTopic($id);
-                    
-                    header("Location:index.php?ctrl=forum&action=listPosts&id=".$id);
+                if($_SESSION["member"]){
+                    $memberId = $_SESSION['member']->getId();
+                    if($memberId == $topic->getMember()->getId()){
+                        $topicManager->managerLockTopic($id);
+                        $this->redirectTo("forum", "listPosts", $id);
+                    }
                 }
             }
         }
@@ -113,11 +114,12 @@
             $topicManager = new TopicManager();
             $topic = $topicManager->findOnebyId($id);
             if(isset($_POST['unlockTopic'])){
-                var_dump('ok'); die;
-                if($_SESSION["member"]->getId() == $topic->getMember()->getId()){
-                    $topicManager->unlockTopic($id);
-                    
-                    header("Location:index.php?ctrl=forum&action=listPosts&id=".$id);
+                if($_SESSION["member"]){
+                    $memberId = $_SESSION['member']->getId();
+                    if($memberId == $topic->getMember()->getId()){
+                        $topicManager->managerUnlockTopic($id);
+                        $this->redirectTo("forum", "listPosts", $id);
+                    }
                 }
             }
         }
