@@ -6,7 +6,7 @@ $topic = $result["data"]['topic'];
 <h1>Posts du Topic <?=$topic->getTitle()?></h1>
 
 <?php
-if(App\Session::getMember()->getId() == $topic->getMember()->getId()){
+if(App\Session::getMember()->getId() == $topic->getMember()->getId() or App\Session::isAdmin()){
     if($topic->getClosed() == 0){
 ?> 
     <form action="index.php?ctrl=forum&action=lockTopic&id=<?= $topic->getId()?>" method="POST">

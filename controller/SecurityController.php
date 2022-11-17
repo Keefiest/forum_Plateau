@@ -93,7 +93,7 @@
         }
         public function logout(){
             if(isset($_POST['logout'])){
-                session_destroy();
+                unset($_SESSION['member']);
                 $this->redirectTo("security", "pageRegisterLogin");
             }
 

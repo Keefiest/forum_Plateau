@@ -16,6 +16,15 @@
 
         }
         // Listings
+        public function listMembers(){
+            $memberManager = new MemberManager();
+            return [
+                "view" => VIEW_DIR."forum/listMembers.php",
+                "data" => [
+                    "members" => $memberManager->findAll(["username", "ASC"])
+                ]
+            ];
+        }
         public function listCategories(){
             $categoryManager = new CategoryManager();
             return [
@@ -79,7 +88,7 @@
                     }
                     
                 };
-                header('Location:index.php?ctrl=forum&action=listTopics&id='.$id);
+                this->redirectTo("forum", "listTopics", $id);
             };    
         }
         public function addPost($id){
@@ -93,7 +102,7 @@
                     "topic_id" => $id,
                     "member_id" => $member
                 ]);
-                header('Location:index.php?ctrl=forum&action=listPosts&id='.$id);
+                $this->redirectTo("forum", "listPosts", $id);
             }
         }
         public function lockTopic($id){
@@ -123,7 +132,23 @@
                 }
             }
         }
-       
+    //  Delete in DB
+        public function delTopic($id){
+            $topicManager = new TopicManager();
+            $topic = $topicManager->findOnebyId($id);
+                if($_SESSION["member"]){
+                    $memberId = $_SESSION['member']->getId();
+                    if($memberId == $topic->getMember()->getId()){
+                        $topicManager->delete($id);
+                        $this->redirectTo("forum", "listPosts", $id);
+                    }
+                }
+
+        }
+        public function delPost($id){
+            $postManager = new PostManager();
+
+        }  
         
         
 

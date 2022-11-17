@@ -23,7 +23,7 @@
                         <?php
                         if(App\Session::isAdmin()){
                             ?>
-                            <a href="index.php?ctrl=home&action=listMembers">Voir la liste des gens</a>
+                            <a href="index.php?ctrl=forum&action=listMembers">Listes des membres</a>
                           
                             <?php
                         }
