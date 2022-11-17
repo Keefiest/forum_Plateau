@@ -132,7 +132,7 @@
                 }
             }
         }
-    //  Delete in DB
+        //  Delete in DB
         public function delTopic($id){
             $topicManager = new TopicManager();
             $postsManager = new PostManager();
@@ -160,9 +160,16 @@
                         $postManager->delete($id);
                         $this->redirectTo("forum", "listPosts", $post->getTopic()->getId());
                     }
-        }  
+                } 
+        }
+        public function editTopic($id){
+
+        }
+        
+        public function editPost($id){
+
+        }
         
         
 
-    }
     }

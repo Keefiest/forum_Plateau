@@ -21,7 +21,7 @@ foreach($topics as $topic){
         if($memberId == $topic->getMember()->getId() or App\Session::isAdmin()){
             ?>
             <form id="delPost" action="index.php?ctrl=forum&action=delTopic&id=<?= $topic->getId()?>" method="POST">
-                <input type="submit" name="delTopic" value="supprimer un topic">
+                <input type="submit" name="delTopic" value="supprimer">
             </form>
         <?php
         }
