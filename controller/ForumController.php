@@ -88,7 +88,7 @@
                     }
                     
                 };
-                this->redirectTo("forum", "listTopics", $id);
+                $this->redirectTo("forum", "listTopics", $id);
             };    
         }
         public function addPost($id){
@@ -111,7 +111,7 @@
             if(isset($_POST['lockTopic'])){
                 if($_SESSION["member"]){
                     $memberId = $_SESSION['member']->getId();
-                    if($memberId == $topic->getMember()->getId()){
+                    if($memberId == $topic->getMember()->getId() or Session::isAdmin()){
                         $topicManager->managerLockTopic($id);
                         $this->redirectTo("forum", "listPosts", $id);
                     }
@@ -125,7 +125,7 @@
             if(isset($_POST['unlockTopic'])){
                 if($_SESSION["member"]){
                     $memberId = $_SESSION['member']->getId();
-                    if($memberId == $topic->getMember()->getId()){
+                    if($memberId == $topic->getMember()->getId() or Session::isAdmin()){
                         $topicManager->managerUnlockTopic($id);
                         $this->redirectTo("forum", "listPosts", $id);
                     }
@@ -135,21 +135,34 @@
     //  Delete in DB
         public function delTopic($id){
             $topicManager = new TopicManager();
+            $postsManager = new PostManager();
             $topic = $topicManager->findOnebyId($id);
+            $posts = $postsManager->getPostsByTopic($id);
                 if($_SESSION["member"]){
                     $memberId = $_SESSION['member']->getId();
-                    if($memberId == $topic->getMember()->getId()){
+                    if($memberId == $topic->getMember()->getId() or Session::isAdmin()){
+                        foreach($posts as $post){   
+                            $postsManager->delPostsDuringDelTopic($id);
+                        }
+                        
                         $topicManager->delete($id);
-                        $this->redirectTo("forum", "listPosts", $id);
+                        $this->redirectTo("forum", "listTopics", $topic->getCategory()->getId());
                     }
                 }
 
         }
         public function delPost($id){
             $postManager = new PostManager();
-
+            $post = $postManager->findOneById($id); 
+                if($_SESSION["member"]){
+                    $memberId = $_SESSION['member']->getId();
+                    if($memberId == $post->getMember()->getId() or Session::isAdmin()){
+                        $postManager->delete($id);
+                        $this->redirectTo("forum", "listPosts", $post->getTopic()->getId());
+                    }
         }  
         
         
 
+    }
     }

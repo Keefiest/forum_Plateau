@@ -29,6 +29,16 @@ foreach($posts as $post){
     ?>
     <p>
             <?php echo $post->getMember()." (".$post->getPostDate().") à écrit : <br>".$post->getText()?>
+            <?php
+                $memberId = $_SESSION['member']->getId();
+                if($memberId == $post->getMember()->getId() or App\Session::isAdmin()){
+                    ?>
+                    <form id="delPost" action="index.php?ctrl=forum&action=delPost&id=<?php echo $post->getId()?>" method="POST">
+                        <input type="submit" name="delPost" value="supprimer un post">
+                    </form>
+            <?php
+                }
+            ?>
     </p>
 <?php
 }

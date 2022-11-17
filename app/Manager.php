@@ -74,6 +74,15 @@
 
             return DAO::delete($sql, ['id' => $id]); 
         }
+        public function delPostsDuringDelTopic($id){
+            $sql = "
+                    DELETE 
+                    FROM post
+                    WHERE topic_id = :id
+                    ";
+
+            return DAO::delete($sql, ['id' => $id]); 
+        }
 
         private function generate($rows, $class){
             foreach($rows as $row){

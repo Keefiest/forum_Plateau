@@ -37,18 +37,22 @@
                     // On vérifie que le pseudo et l'adresse email n'existe pas en base de donnée, et que le mot de passe est pareil que la confirmation
                     if(!$memberManager->findOneByUser($username)){
                         if(!$memberManager->findOneByEmail($email)){
-                            if($password == $verifyPassword){
-                                $memberManager->add([
-                                    "username" => $username,
-                                    "email" => $email,
-                                    "password" => password_hash($password, PASSWORD_DEFAULT),
-                                    "rank" => $rank,
-                                    "phoneNumber" => $phoneNumber
-                                ]);
-                                session::addFlash("success", "Vous êtes inscrit avec succès");
-                                $this->redirectTo("security", "pageRegisterLogin");
-                            } else {
-                                session::addFlash("error", "Le mot de passe ne correspond pas");
+                            if(strlen($password) >= 8){
+                                if($password == $verifyPassword){
+                                    $memberManager->add([
+                                        "username" => $username,
+                                        "email" => $email,
+                                        "password" => password_hash($password, PASSWORD_DEFAULT),
+                                        "rank" => $rank,
+                                        "phoneNumber" => $phoneNumber
+                                    ]);
+                                    session::addFlash("success", "Vous êtes inscrit avec succès");
+                                    $this->redirectTo("security", "pageRegisterLogin");
+                                } else {
+                                    session::addFlash("error", "Le mot de passe ne correspond pas");
+                            }
+                            } else{
+                                session::addFlash("error", "Le mot de passe doit faire 8 caractères ou plus");
                             }
                         } else{
                             session::addFlash("error", "L'adresse email est déjà utilisée");

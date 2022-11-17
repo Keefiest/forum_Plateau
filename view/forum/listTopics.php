@@ -16,6 +16,17 @@ foreach($topics as $topic){
         <a href="index.php?ctrl=forum&action=listPosts&id=<?= $topic->getId() ?>">
             <?php echo $topic->getTitle()." - ".$topic->getcreationDate().""?>
         </a>
+        <?php
+        $memberId = $_SESSION['member']->getId();
+        if($memberId == $topic->getMember()->getId() or App\Session::isAdmin()){
+            ?>
+            <form id="delPost" action="index.php?ctrl=forum&action=delTopic&id=<?= $topic->getId()?>" method="POST">
+                <input type="submit" name="delTopic" value="supprimer un topic">
+            </form>
+        <?php
+        }
+        ?>
+
     </p>
     <?php
 }

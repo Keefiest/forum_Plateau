@@ -36,7 +36,7 @@
                             ?>
                             <a href="index.php?ctrl=forum&action=listCategories">Categories</a>
                             <a href="/security/viewProfile.html"><span class="fas fa-user"></span>&nbsp;<?= App\Session::getMember()?></a>
-                            <form action="index.php?ctrl=security&action=logout" method="POST">
+                            <form action="index.php?ctrl=security&action=logout" id="logoutPost" method="POST">
                                 <input type="submit" name="logout" value="Déconnexion"></input>
                             </form>
                             <?php
