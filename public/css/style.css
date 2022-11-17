@@ -1,0 +1,17 @@
+/* ALL */
+
+*{
+    margin: 0;
+    top: 0;
+    -webkit-appearance: none;   
+}
+/* BODY */
+/* HEADER */
+nav{
+    height: 5vh;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0 0 0;
+}
