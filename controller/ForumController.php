@@ -163,11 +163,20 @@
                 } 
         }
         public function editTopic($id){
+            $title = filter_input(INPUT_POST, "title", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
+            $topicManager = new TopicManager();
+            $topic = $topicManager->findOneById($id);
+
+            if($_POST["editTopic"]){
+
+            }
         }
         
         public function editPost($id){
-
+            $text = filter_input(INPUT_POST, "title", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $postManager = new PostManager();
+            $post = $postManager->findOneById($id);
         }
         
         
