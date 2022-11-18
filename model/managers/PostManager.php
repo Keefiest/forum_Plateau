@@ -25,6 +25,18 @@
                 $this->className
             );
         }
+        public function editPost($id, $text){
+            $sql = "
+                UPDATE ".$this->tableName." p
+                SET title = :title
+                WHERE p.id_post = :id
+            ";
+            DAO::update($sql, [
+                "id" => $id,
+                "text" => $text
+            ]);
+        }
+
         
 
     }

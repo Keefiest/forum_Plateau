@@ -16,16 +16,35 @@ foreach($topics as $topic){
         <a href="index.php?ctrl=forum&action=listPosts&id=<?= $topic->getId() ?>">
             <?php echo $topic->getTitle()." - ".$topic->getcreationDate().""?>
         </a>
-        <?php
-        $memberId = $_SESSION['member']->getId();
-        if($memberId == $topic->getMember()->getId() or App\Session::isAdmin()){
-            ?>
-            <form id="delPost" action="index.php?ctrl=forum&action=delTopic&id=<?= $topic->getId()?>" method="POST">
-                <input type="submit" name="delTopic" value="supprimer">
-            </form>
-        <?php
-        }
-        ?>
+        <div class="delTopic">
+                <?php
+                $memberId = $_SESSION['member']->getId();
+                if($memberId == $topic->getMember()->getId() or App\Session::isAdmin()){
+                    ?>
+                    <form id="delPost" action="index.php?ctrl=forum&action=delTopic&id=<?= $topic->getId()?>" method="POST">
+                        <input type="submit" name="delTopic" value="supprimer">
+                    </form>
+                <?php
+                }
+                ?>
+        </div>
+        <div class="editTopic">
+                <?php
+                if($memberId == $topic->getMember()->getId() or App\Session::isAdmin()){
+                    ?> 
+                    <form action="index.php?ctrl=forum&action=editTopic&id=<?= $topic->getId()?>" method="POST">
+                        <p> 
+                            <label>
+                                Nouveau titre</br>
+                                <input type="text" name="title" required="required">
+                            </label>
+                        </p>
+                        <input type="submit" name="editTopic" value="modifier">
+                    </form>
+                <?php
+                }
+                ?>
+        </div>
 
     </p>
     <?php

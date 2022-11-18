@@ -50,5 +50,16 @@
             DAO::update($sql, ['id' => $id]);
             
         }
+        public function editTopic($id, $title){
+            $sql = "
+                UPDATE ".$this->tableName." t
+                SET title = :title
+                WHERE t.id_topic = :id
+            ";
+            DAO::update($sql, [
+                "id" => $id,
+                "title" => $title
+            ]);
+        }
 
     }
