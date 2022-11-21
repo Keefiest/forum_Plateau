@@ -105,6 +105,7 @@
                 $this->redirectTo("forum", "listPosts", $id);
             }
         }
+        // lock&unlock topic
         public function lockTopic($id){
             $topicManager = new TopicManager();
             $topic = $topicManager->findOnebyId($id);
@@ -162,6 +163,7 @@
                     }
                 } 
         }
+        // Edit in db
         public function editTopic($id){
             $title = filter_input(INPUT_POST, "title", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
@@ -169,14 +171,20 @@
             $topic = $topicManager->findOneById($id);
 
             if($_POST["editTopic"]){
-
+                $topicManager->editTopic($id, $title);
+                $this->redirectTo("forum", "ListTopics", $topic->getCategory()->getId());
             }
         }
         
         public function editPost($id){
-            $text = filter_input(INPUT_POST, "title", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $text = filter_input(INPUT_POST, "text", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
             $postManager = new PostManager();
             $post = $postManager->findOneById($id);
+            if($_POST["editPost"]){
+                $postManager->editPost($id, $text);
+                $this->redirectTo("forum", "ListPosts", $post->getTopic()->getId());
+            }
         }
         
         

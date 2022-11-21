@@ -29,19 +29,38 @@ foreach($posts as $post){
     ?>
     <p>
             <?php echo $post->getMember()." (".$post->getPostDate().") à écrit : <br>".$post->getText()?>
-            <?php
+            <div class="delPost">
+                <?php
                 $memberId = $_SESSION['member']->getId();
                 if($memberId == $post->getMember()->getId() or App\Session::isAdmin()){
                     ?>
                     <form id="delPost" action="index.php?ctrl=forum&action=delPost&id=<?= $post->getId()?>" method="POST">
                         <input type="submit" name="delPost" value="supprimer">
                     </form>
-                    <form action="">
-                        <input type="submit" name="editPost" value="Modifier">
-                    </form>
-            <?php
+                    <?php
                 }
-            ?>
+                ?>
+            </div>
+            <div class="editPost">
+                <?php
+                if($memberId == $post->getMember()->getId() or App\Session::isAdmin()){
+                ?>
+                    Modifier</br>
+                    <form action="index.php?ctrl=forum&action=editPost&id=<?= $post->getId()?>" method="POST">
+                    <p> 
+                            <label>
+                                Nouveau message</br>
+                                <input type="text" name="text" required="required">
+                            </label>
+                        </p>
+                        <input type="submit" name="editPost" value="modifier">
+                    </form>
+                    
+                    
+                <?php
+                }
+                ?>
+            </div>
     </p>
 <?php
 }
