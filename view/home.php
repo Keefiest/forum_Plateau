@@ -6,12 +6,15 @@
             <span>&nbsp;-&nbsp;</span>
             <a href="index.php?ctrl=security&action=pageRegisterLogin">S'inscrire</a>
         </p>
+        
+
+            <a id="scrollCategoryBtn" href="#categoryScroll">
+                    <span class="arrow1">scroll</span>
+                    <i class="fa-solid fa-chevron-down arrow1"></i>
+            </a>
     </div>
-    <a href="#categoryScroll">
-        <i class="fa-solid fa-chevron-down arrow1"></i>
-    </a>
     <h2 id="categoryScroll">
-        Categories
+        <a href="index.php?ctrl=forum&action=listCategories">Catégories</a>
     </h2>
     
 </div>

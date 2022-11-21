@@ -8,7 +8,7 @@ if(App\Session::getMember()->getBanned() == 0){
 
 <h1>Topics de la catégorie <?=$category ?></h1>
 
-<div class="list">
+<div class="listTopics">
     <div class="topics">
 <?php    
 foreach($topics as $topic){

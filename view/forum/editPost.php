@@ -12,7 +12,7 @@ if(App\Session::getMember()->getBanned() == 0){
                         <p> 
                             <label>
                                 Nouveau message</br>
-                                <input type="text" name="text" required="required">
+                                <textarea type="text" name="text" required="required"></textarea>
                             </label>
                         </p>
                         <input type="submit" name="editPost" value="modifier">

@@ -34,7 +34,7 @@
                         
                         if(App\Session::getMember()){
                             ?>
-                            <a href="index.php?ctrl=forum&action=listCategories">Categories</a>
+                            
                             <a href="/security/viewProfile.html"><span class="fas fa-user"></span>&nbsp;<?= App\Session::getMember()?></a>
                             <a href="javascript:;" onclick="document.getElementById('logoutPost').submit();">Déconnexion</a>
                             <form action="index.php?ctrl=security&action=logout" id="logoutPost" method="POST">
@@ -61,7 +61,7 @@
             </main>
         </div>
         <footer>
-            <p>&copy; 2020 - Forum CDA - <a href="/home/forumRules.html">Règlement du forum</a> - <a href="">Mentions légales</a></p>
+            <p>&copy; 2022 - Forum CDA - <a href="/home/forumRules.html">Règlement du forum</a> - <a href="">Mentions légales</a></p>
             <!--<button id="ajaxbtn">Surprise en Ajax !</button> -> cliqué <span id="nbajax">0</span> fois-->
         </footer>
     </div>
