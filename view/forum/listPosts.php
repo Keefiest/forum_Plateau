@@ -30,40 +30,31 @@ else{
 foreach($posts as $post){
     ?>
     <p>
-            <?php echo $post->getMember()." (".$post->getPostDate().") à écrit : <br>".$post->getText()?>
-            <div class="delPost">
+        <?php echo $post->getMember()." (".$post->getPostDate().") à écrit : <br>".$post->getText()?>
+
                 <?php
                 $memberId = $_SESSION['member']->getId();
                 if($memberId == $post->getMember()->getId() or App\Session::isAdmin()){
-                        ?>
+                ?>
+                    <a href="javascript:;" onclick="document.getElementById('pageEditPost').submit();">Modifier</a>
+                    <a href="javascript:;" onclick="document.getElementById('delPost').submit();">Supprimer</a>
                     <form id="delPost" action="index.php?ctrl=forum&action=delPost&id=<?= $post->getId()?>" method="POST">
-                        <input type="submit" name="delPost" value="supprimer">
+                        <input type="hidden" name="delPost" value="supprimer">
                     </form>
-                    <?php
+                <?php
                 }
                 ?>
-            </div>
-<?php
-?>
-            <div class="editPost">
+                <?php
+                ?>
                 <?php
                 if($memberId == $post->getMember()->getId() or App\Session::isAdmin()){
                 ?>
-                    Modifier</br>
-                    <form action="index.php?ctrl=forum&action=editPost&id=<?= $post->getId()?>" method="POST">
-                        <p> 
-                            <label>
-                                Nouveau message</br>
-                                <input type="text" name="text" required="required">
-                            </label>
-                        </p>
-                        <input type="submit" name="editPost" value="modifier">
-                    </form>
+                    <form id="pageEditPost" action="index.php?ctrl=forum&action=pageEditPost&id=<?= $post->getId()?>" method="POST">
+                        <input type="hidden" name="pageEditPost" value="Modifier">
+                    </form>                
                 <?php
                 }
                 ?>
-            </div>
-    </p>
 <?php
 }
     if(App\Session::getMember()){

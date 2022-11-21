@@ -59,6 +59,8 @@
                 ]
             ];
         }
+        
+       
         // Add in db
         public function addTopic($id){
             $topicManager = new TopicManager();
@@ -186,7 +188,29 @@
                 $this->redirectTo("forum", "ListPosts", $post->getTopic()->getId());
             }
         }
-        
+        public function pageEditTopic($id){
+            $topicManager = new TopicManager();
+            $topic = $topicManager->findOneById($id);
+
+            return [
+                "view" => VIEW_DIR."forum/editTopic.php",
+                "data" => [
+                    "topic" => $topicManager->findOneById($id)
+                ]
+            ];
+
+        }
+        public function pageEditPost($id){
+            $postManager = new PostManager();
+            $post = $postManager->findOneById($id);
+
+            return [
+                "view" => VIEW_DIR."forum/editpost.php",
+                "data" => [
+                    "post" => $postManager->findOneById($id)
+                ]
+            ];
+        }
         
 
     }

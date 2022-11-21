@@ -11,16 +11,12 @@ $members = $result["data"]['members'];
 <?php
 foreach($members as $member){
 
+    if($member->getRank() !== "admin"){
 
     ?>
     <p>
             <?php
-                echo "Pseudo : ".$member->getUsername()." / Email : ".$member->getEmail()." / ";
-                if($member->getRank() == "admin"){
-                    echo "<span style='color:red;font-weight:bold;'>".$member->getRank()."</span>";
-                } else{
-                    echo $member->getRank();
-                }
+                echo "Pseudo : ".$member->getUsername()." / Email : ".$member->getEmail()." / ". $member->getRegisterDate();
                 if($member->getBanned() == 1){
             ?>
                 <form action="index.php?ctrl=security&action=unban&id=<?= $member->getId()?>" method="POST">
@@ -35,6 +31,7 @@ foreach($members as $member){
                 </form>
             <?php
                 }
+            }
              ?>
     </p>
 

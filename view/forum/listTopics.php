@@ -8,48 +8,54 @@ if(App\Session::getMember()->getBanned() == 0){
 
 <h1>Topics de la catégorie <?=$category ?></h1>
 
-<?php
+<div class="list">
+    <div class="topics">
+<?php    
 foreach($topics as $topic){
     //var_dump($topic);
     // var_dump($topic->getId()); die;
     ?>
-    <p>
-        <a href="index.php?ctrl=forum&action=listPosts&id=<?= $topic->getId() ?>">
-            <?php echo $topic->getTitle()." - ".$topic->getcreationDate().""?>
-        </a>
-        <div class="delTopic">
-                <?php
-                $memberId = $_SESSION['member']->getId();
-                if($memberId == $topic->getMember()->getId() or App\Session::isAdmin()){
+        <div class="topic">
+            <a href="index.php?ctrl=forum&action=listPosts&id=<?= $topic->getId() ?>">
+                <?php echo $topic->getTitle()." - ".$topic->getcreationDate()."";
+                if($topic->getClosed() == 1){
+                    echo "(Fermé)";
+                } else{
+                    echo "(Ouvert)";
+                }
+                ?>
+            </a>
+        
+            <div class="delTopic">
+                    <?php
+                    $memberId = $_SESSION['member']->getId();
+                    if($memberId == $topic->getMember()->getId() or App\Session::isAdmin()){
+                        ?>
+                        <a href="javascript:;" onclick="document.getElementById('pageEditTopic').submit();">Modifier</a>
+                        <a href="javascript:;" onclick="document.getElementById('delTopic').submit();">Supprimer</a>
+                        <form id="delTopic" action="index.php?ctrl=forum&action=delTopic&id=<?= $topic->getId()?>" method="POST">
+                            <input type="hidden" name="delTopic" value="supprimer">
+                        </form>
+                    <?php
+                    }
                     ?>
-                    <form id="delPost" action="index.php?ctrl=forum&action=delTopic&id=<?= $topic->getId()?>" method="POST">
-                        <input type="submit" name="delTopic" value="supprimer">
-                    </form>
+            </div>
                 <?php
-                }
-                ?>
+                    if($memberId == $topic->getMember()->getId() or App\Session::isAdmin()){
+                        ?> 
+                        <form id="pageEditTopic" action="index.php?ctrl=forum&action=pageEditTopic&id=<?= $topic->getId()?>" method="POST">
+                            <input type="hidden" name="pageEditTopic" value="modifier">
+                        </form>
+                        <?php
+                    }
+                    ?>
         </div>
-        <div class="editTopic">
-                <?php
-                if($memberId == $topic->getMember()->getId() or App\Session::isAdmin()){
-                    ?> 
-                    <form action="index.php?ctrl=forum&action=editTopic&id=<?= $topic->getId()?>" method="POST">
-                        <p> 
-                            <label>
-                                Nouveau titre</br>
-                                <input type="text" name="title" required="required">
-                            </label>
-                        </p>
-                        <input type="submit" name="editTopic" value="modifier">
-                    </form>
-                <?php
-                }
-                ?>
+        <?php
+        }  
+        ?>
         </div>
-
-    </p>
+    </div>
     <?php
-}
     if(App\Session::getMember()){
         ?>
     <form action="index.php?ctrl=forum&action=addTopic&id=<?= $category->getId() ?>" method="POST">
