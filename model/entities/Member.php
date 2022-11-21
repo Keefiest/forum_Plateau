@@ -12,6 +12,7 @@
         private $rank;
         private $phoneNumber;
         private $registerDate;
+        private $banned;
 
         public function __construct($data){         
             $this->hydrate($data);        
@@ -146,6 +147,25 @@
          */ 
         public function setregisterDate($date){
             $this->registerDate = new \DateTime($date);
+            return $this;
+        }
+         /**
+         * Get the value of ban
+         */ 
+        public function getBanned()
+        {
+            return $this->banned;
+        }
+        
+        /**
+         * Set the value of ban
+         *
+         * @return  self
+         */ 
+        public function setBanned($banned)
+        {
+            $this->banned = $banned;
+            
             return $this;
         }
         public function __toString()

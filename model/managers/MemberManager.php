@@ -37,6 +37,26 @@
                 $this->className
             );
         }
+        public function ban($id){
+            $sql = "
+                UPDATE member m
+                SET banned = 1
+                WHERE m.id_member = :id
+                ";
+            DAO::update($sql, [
+                "id" => $id
+               ]);
+        }
+        public function unban($id){
+            $sql = "
+            UPDATE member m
+            SET banned = 0
+            WHERE m.id_member = :id
+            ";
+        DAO::update($sql, [
+            "id" => $id
+           ]);
+        }
 
 
     }

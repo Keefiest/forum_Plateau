@@ -3,6 +3,7 @@
 $topics = $result["data"]['topics'];
 $category = $result["data"]['category'];
 
+if(App\Session::getMember()->getBanned() == 0){
 ?>
 
 <h1>Topics de la catégorie <?=$category ?></h1>
@@ -49,9 +50,8 @@ foreach($topics as $topic){
     </p>
     <?php
 }
-
-if(App\Session::getMember()){
-?>
+    if(App\Session::getMember()){
+        ?>
     <form action="index.php?ctrl=forum&action=addTopic&id=<?= $category->getId() ?>" method="POST">
         <h2>+Topic</h2>
         <p> 
@@ -60,7 +60,7 @@ if(App\Session::getMember()){
                 <input type="text" name="title" required="required">
             </label>
         </p>
-
+        
         <p>
             <label>
                 Message</br>
@@ -73,10 +73,13 @@ if(App\Session::getMember()){
             </label>
         </p>
     </form>
-<?php
-}
-else{
-    echo "<h3>Connectez-vous pour ajouter des topics</h3>";
+    <?php
+    }
+    else{
+        echo "<h3>Connectez-vous pour ajouter des topics</h3>";
+    }
+} else{
+    echo "<h2>Vous êtes banni</h2>";
 }
 
 

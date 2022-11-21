@@ -21,6 +21,20 @@ foreach($members as $member){
                 } else{
                     echo $member->getRank();
                 }
+                if($member->getBanned() == 1){
+            ?>
+                <form action="index.php?ctrl=security&action=unban&id=<?= $member->getId()?>" method="POST">
+                    <input type="submit" name="unban" value="Débannir">    
+                </form>
+                
+            <?php
+                } elseif($member->getBanned() == 0){
+            ?>
+                <form action="index.php?ctrl=security&action=ban&id=<?= $member->getId()?>" method="POST">
+                    <input type="submit" name="ban" value="Bannir">    
+                </form>
+            <?php
+                }
              ?>
     </p>
 

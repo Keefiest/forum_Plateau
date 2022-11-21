@@ -2,6 +2,8 @@
 
 $posts = $result["data"]['posts'];
 $topic = $result["data"]['topic'];
+
+if(App\Session::getMember()->getBanned() == 0){
 ?>
 <h1>Posts du Topic <?=$topic->getTitle()?></h1>
 
@@ -33,7 +35,7 @@ foreach($posts as $post){
                 <?php
                 $memberId = $_SESSION['member']->getId();
                 if($memberId == $post->getMember()->getId() or App\Session::isAdmin()){
-                    ?>
+                        ?>
                     <form id="delPost" action="index.php?ctrl=forum&action=delPost&id=<?= $post->getId()?>" method="POST">
                         <input type="submit" name="delPost" value="supprimer">
                     </form>
@@ -41,13 +43,15 @@ foreach($posts as $post){
                 }
                 ?>
             </div>
+<?php
+?>
             <div class="editPost">
                 <?php
                 if($memberId == $post->getMember()->getId() or App\Session::isAdmin()){
                 ?>
                     Modifier</br>
                     <form action="index.php?ctrl=forum&action=editPost&id=<?= $post->getId()?>" method="POST">
-                    <p> 
+                        <p> 
                             <label>
                                 Nouveau message</br>
                                 <input type="text" name="text" required="required">
@@ -55,8 +59,6 @@ foreach($posts as $post){
                         </p>
                         <input type="submit" name="editPost" value="modifier">
                     </form>
-                    
-                    
                 <?php
                 }
                 ?>
@@ -64,49 +66,34 @@ foreach($posts as $post){
     </p>
 <?php
 }
-if(App\Session::getMember()){
-    if($topic->getClosed() == 0){
-    ?>
-        <form action="index.php?ctrl=forum&action=addPost&id=<?= $topic->getId() ?>" method="POST">
-            <h2>Ajouter Post</h2>
-            <p>
-                <label>
-                    Message</br>
-                    <textarea name="text" cols="30" rows="10"></textarea>
-                </label>
-            </p>
-            <p>
-                <label>
-                    <input type="submit" value="Créer" name="submit">
-                </label>
-            </p>    
-        </form>
-    <?php
+    if(App\Session::getMember()){
+        if($topic->getClosed() == 0){
+        ?>
+            <form action="index.php?ctrl=forum&action=addPost&id=<?= $topic->getId() ?>" method="POST">
+                <h2>Ajouter Post</h2>
+                <p>
+                    <label>
+                        Message</br>
+                        <textarea name="text" cols="30" rows="10"></textarea>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input type="submit" value="Créer" name="submit">
+                    </label>
+                </p>    
+            </form>
+        <?php
+        }
+        else{
+            echo "<h3>Topic fermé</h3>";
+        }
     }
     else{
-        echo "<h3>Topic fermé</h3>";
+        echo "<h3>Connectez-vous pour poster</h3>";
     }
-}
-else{
-    echo "<h3>Connectez-vous pour poster</h3>";
-}
-if(isset($_POST['editPost'])){
-    ?>
-    <form action="index.php?ctrl=forum&action=editPost&id=<?= $topic->getId() ?>" method="POST">
-            <h2>Modifier un Post</h2>
-            <p>
-                <label>
-                    Message</br>
-                    <textarea name="text" cols="30" rows="10"></textarea>
-                </label>
-            </p>
-            <p>
-                <label>
-                    <input type="submit" value="Modifier" name="submit">
-                </label>
-            </p>    
-        </form>
-<?php
+} else{
+    echo "<h2>Vous êtes banni</h2>";
 }
 ?>
 

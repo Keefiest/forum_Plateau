@@ -15,7 +15,7 @@
         public function index(){
 
         }
-
+        // REGISTER, LOGIN & LOGOUT
         public function pageRegisterLogin(){
             return [
                 "view" => VIEW_DIR."security/register-login.php"
@@ -101,6 +101,25 @@
                 $this->redirectTo("security", "pageRegisterLogin");
             }
 
+        }
+        // BAN/UNBAN
+        public function ban($id){
+            $memberManager = new MemberManager();
+            $member = $memberManager->findOneById($id);
+
+            if(isset($_POST['ban'])){
+                $memberManager->ban($id);
+                $this->redirectTo("forum", "listMembers");
+            }
+        }
+        public function unban($id){
+            $memberManager = new MemberManager();
+            $member = $memberManager->findOneById($id);
+
+            if(isset($_POST['unban'])){
+                $memberManager->unban($id);
+                $this->redirectTo("forum", "listMembers");
+            }
         }
 
         
